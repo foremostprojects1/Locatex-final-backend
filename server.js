@@ -82,15 +82,15 @@ mongoose.connect(process.env.MONGODB_URI, {
     process.exit(1);
   });
 
-const staticPath = path.join(__dirname, 'HTML');
+// const staticPath = path.join(__dirname, 'HTML');
 
-if (fs.existsSync(staticPath)) {
-  app.use(express.static(staticPath));
+// if (fs.existsSync(staticPath)) {
+//   app.use(express.static(staticPath));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(staticPath, 'index.html'));
-  });
-}
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.join(staticPath, 'index.html'));
+//   });
+// }
 // Routes
 // Diagnostic helper to identify bad router exports
 function mountRoute(path, routerModule, name) {
