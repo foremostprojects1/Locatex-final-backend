@@ -82,19 +82,15 @@ mongoose.connect(process.env.MONGODB_URI, {
     process.exit(1);
   });
 
-// Static files middleware - serve HTML files
-app.use(express.static('../HTML'));
+const staticPath = path.join(__dirname, 'HTML');
 
-// Serve index.html for root route
-app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: '../HTML' });
-});
+if (fs.existsSync(staticPath)) {
+  app.use(express.static(staticPath));
 
-// Serve properties-list-rightside.html for properties route
-app.get('/properties-list-rightside.html', (req, res) => {
-  res.sendFile('properties-list-rightside.html', { root: '../HTML' });
-});
-
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(staticPath, 'index.html'));
+  });
+}
 // Routes
 // Diagnostic helper to identify bad router exports
 function mountRoute(path, routerModule, name) {
